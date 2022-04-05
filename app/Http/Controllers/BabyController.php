@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Baby;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class BabyController extends Controller
 {
@@ -14,8 +15,9 @@ class BabyController extends Controller
         $baby-> birthdate = $request->birthdate;
         $baby-> gender =    $request->gender;
         $baby->save();
+        
 
-        return response()->json($baby);
+        return response()->json(["baby_data" => $baby]);
     }
 
     public function index(Request $request)
@@ -39,12 +41,15 @@ class BabyController extends Controller
 
     public function update(Request $request, $id)
     {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
         $baby = Baby::find($id);
         $baby-> name =      $request->name;
         $baby-> birthdate = $request->birthdate;
         $baby-> gender =    $request->gender;
+        $baby-> user_id =   $user->id;
         $baby->save();
 
-        return response()->json($baby);
+        return response()->json(["baby_data" => $baby]);
     }
 }

@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
-Route::post('/logout', 'AuthController@logout');
+Route::get('/logout', 'AuthController@logout');
 Route::get('/profile','AuthController@profile');
 
 Route::post('/add-baby', 'BabyController@insert');
