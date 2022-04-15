@@ -27,7 +27,7 @@ Route::get('/logout', 'AuthController@logout');
 Route::get('/profile','AuthController@profile');
 
 Route::post('/add-baby', 'BabyController@insert');
-Route::get('/all-babies', 'BabyController@index');
+Route::get('/all-babies/{user_id}', 'BabyController@index');
 Route::get('/baby-data/{id}', 'BabyController@show');
 Route::post('/delete-baby/{id}', 'BabyController@delete');
 Route::post('/update-baby/{id}', 'BabyController@update');

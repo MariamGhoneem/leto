@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\Baby;
 
 class AuthController extends Controller
 {
@@ -37,7 +39,7 @@ class AuthController extends Controller
         $this->guard()->factory()->setTTL($token_validity);
 
         if (!$token = $this->guard()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Wrong email or password'], 403);
         }
 
         return $this->respondWithToken($token);
@@ -100,12 +102,16 @@ class AuthController extends Controller
 
     protected function respondWithToken($token)
     {
-        $user = auth()->user();
+        $user = JWTAuth::user();
+        //$user_id  =JWTAuth::toUser($token)->id;
+        //$user = auth()->user();
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user_data' => $user,
+            //'baby data' => Baby::where('user_id', '=',$user_id)->get(),
+
         ]);
     }//end respondWithToken()
 
