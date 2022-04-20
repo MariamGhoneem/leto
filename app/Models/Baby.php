@@ -18,6 +18,11 @@ class Baby extends Model
 
     public function user()
     {
-        return $this->belongsTo('User::class');
+        return $this->belongsTo(User::class);
+    }
+
+    public function feedings()
+    {
+        return $this->hasMany(Feeding::class);
     }
 }

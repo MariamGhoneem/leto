@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,13 +27,18 @@ Route::post('/login', 'AuthController@login');
 Route::get('/logout', 'AuthController@logout');
 Route::get('/profile','AuthController@profile');
 
-Route::post('/add-baby', 'BabyController@insert');
-Route::get('/all-babies/{user_id}', 'BabyController@index');
-Route::get('/baby-data/{id}', 'BabyController@show');
-Route::post('/delete-baby/{id}', 'BabyController@delete');
-Route::post('/update-baby/{id}', 'BabyController@update');
+Route::controller(BabyController::class)->group(function(){
+    Route::post('/add-baby', 'insert');
+    Route::get('/all-babies/{user_id}', 'index');
+    Route::get('/baby-data/{id}', 'show');
+    Route::post('/delete-baby/{id}', 'delete');
+    Route::post('/update-baby/{id}', 'update');
+});
 
 
+Route::controller(TtrackersController::class)->group(function (){
+    Route::post('/add-feeding/{user_id}','add_feeding');
+});
 
 
 

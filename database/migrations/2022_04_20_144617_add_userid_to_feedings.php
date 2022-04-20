@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUseridToBabies extends Migration
+class AddUseridToFeedings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddUseridToBabies extends Migration
      */
     public function up()
     {
-        Schema::table('babies', function (Blueprint $table) {
+        Schema::table('feedings', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -26,7 +26,7 @@ class AddUseridToBabies extends Migration
      */
     public function down()
     {
-        Schema::table('babies', function (Blueprint $table) {
+        Schema::table('feedings', function (Blueprint $table) {
             //
         });
     }
