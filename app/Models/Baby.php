@@ -25,4 +25,9 @@ class Baby extends Model
     {
         return $this->hasMany(Feeding::class);
     }
+
+    public function sleeps()
+    {
+        return $this->hasMany(Sleep::class);
+    }
 }
