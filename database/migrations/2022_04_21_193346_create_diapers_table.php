@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSleepsTable extends Migration
+class CreateDiapersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateSleepsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sleeps', function (Blueprint $table) {
+        Schema::create('diapers', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start_time', $precision = 0);
-            $table->dateTime('end_time', $precision = 0);
+            $table->boolean('wet');
+            $table->boolean('dirty');
+            $table->dateTime('time', $precision = 0);
         });
     }
 
@@ -27,6 +28,6 @@ class CreateSleepsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sleeps');
+        Schema::dropIfExists('diapers');
     }
 }

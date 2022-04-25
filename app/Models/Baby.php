@@ -30,4 +30,9 @@ class Baby extends Model
     {
         return $this->hasMany(Sleep::class);
     }
+
+    public function diapers()
+    {
+        return $this->hasMany(Diaper::class);
+    }
 }

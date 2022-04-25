@@ -16,7 +16,7 @@ class CreateFeedingsTable extends Migration
         Schema::create('feedings', function (Blueprint $table) {
             $table->id();
             $table->enum('quantity',['1','2','3','4','5']);
-            $table->time('time');
+            $table->dateTime('created_at', $precision = 0);
         });
     }
 

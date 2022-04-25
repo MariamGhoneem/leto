@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSleepsTable extends Migration
+class AddUseridToDiapers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateSleepsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sleeps', function (Blueprint $table) {
-            $table->id();
-            $table->dateTime('start_time', $precision = 0);
-            $table->dateTime('end_time', $precision = 0);
+        Schema::table('diapers', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->unsigned()->index()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,6 +26,8 @@ class CreateSleepsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sleeps');
+        Schema::table('diapers', function (Blueprint $table) {
+            //
+        });
     }
 }

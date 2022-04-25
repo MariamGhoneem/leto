@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sleep extends Model
+class Diaper extends Model
 {
     use HasFactory;
-    protected $table = 'sleeps';
     public $timestamps = false;
+    protected $table = 'diapers';
 
     protected $fillable =[
-        'start_time',
-        'end_time'
+        'time',
+        'states'
     ];
 
     public function baby()
@@ -25,4 +25,5 @@ class Sleep extends Model
     {
         return $this->belongsTo(User::class);
     }
+
 }

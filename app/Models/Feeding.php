@@ -14,7 +14,7 @@ class Feeding extends Model
 
     protected $fillable =[
         'quantity',
-        'time',
+        'created_at',
     ];
 
     public function baby()

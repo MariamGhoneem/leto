@@ -69,4 +69,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Sleep::class);
     }
 
+    public function diapers()
+    {
+        return $this->hasMany(Diaper::class);
+    }
 }

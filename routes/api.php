@@ -39,6 +39,7 @@ Route::controller(BabyController::class)->group(function(){
 Route::controller(TtrackersController::class)->group(function (){
     Route::post('/add-feeding/{user_id}','add_feeding');
     Route::post('/add-sleep/{user_id}','add_sleep');
+    Route::post('/add-diaper/{user_id}','add_diaper');
 });
 
 
