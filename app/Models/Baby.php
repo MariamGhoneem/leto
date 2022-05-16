@@ -35,4 +35,9 @@ class Baby extends Model
     {
         return $this->hasMany(Diaper::class);
     }
+
+    public function histories()
+    {
+        return $this->hasMany(History::class);
+    }
 }
