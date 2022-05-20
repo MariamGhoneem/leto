@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable =[
         'babyname',
         'docname',
         'diagnose',
-        'r'
+        'r',
+        'time',
     ];
     
     public function baby()

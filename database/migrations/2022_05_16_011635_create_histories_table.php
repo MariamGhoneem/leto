@@ -19,7 +19,7 @@ class CreateHistoriesTable extends Migration
             $table-> string('docname');
             $table-> string('diagnose') ;
             $table-> string('r');
-            $table->timestamps();
+            $table->dateTime('time', $precision = 0);
         });
     }
 

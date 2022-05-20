@@ -25,6 +25,7 @@ class HistoryController extends Controller
         $history-> docname =    $request->docname;
         $history-> diagnose =   $request->diagnose;
         $history-> r =          $request->r;
+        $history-> time =       $request->time;
         $history-> baby_id =    $babyid;
         $history->save();
         return response()->json('success');
