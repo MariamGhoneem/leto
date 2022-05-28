@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +48,7 @@ Route::controller(HistoryController::class)->group(function (){
     Route::get('/history-data/{history_id}', 'show');
 });
 
+Route::controller(CryController::class)->group(function (){
+    Route::get('/trackers-data/{baby_id}', 'trackers');
+});
 
