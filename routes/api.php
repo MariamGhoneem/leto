@@ -46,6 +46,7 @@ Route::controller(TtrackersController::class)->group(function (){
 Route::controller(HistoryController::class)->group(function (){
     Route::post('/add-history/{baby_id}', 'add_history');
     Route::get('/all-histories/{baby_id}', 'allhistories');
+    Route::get('/history-data/{history_id}', 'show');
 });
 
 

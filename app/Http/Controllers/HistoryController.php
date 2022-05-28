@@ -13,7 +13,7 @@ class HistoryController extends Controller
         if ($history = History::where('baby_id','=',$babyid)->get()) {
             return response()->json($history);
         } else {
-            return response()->json('no history found',404);
+            return response()->json('no histories found',404);
         } 
     }
 
@@ -29,5 +29,14 @@ class HistoryController extends Controller
         $history-> baby_id =    $babyid;
         $history->save();
         return response()->json('success');
+    }
+
+    public function show($id)
+    {
+        if ($history = History::find($id)) {
+            return response()->json($history);
+        } else {
+            return response()->json('no history found',404);
+        } 
     }
 }
