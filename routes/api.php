@@ -52,3 +52,12 @@ Route::controller(CryController::class)->group(function (){
     Route::get('/trackers-data/{baby_id}', 'trackers');
 });
 
+Route::controller(PostController::class)->group(function(){
+    Route::post('/add-post/{user_id}','insert');
+    Route::get('/user-posts/{user_id}','userposts');
+    Route::get('/cat-posts/{cat_id}','catposts');
+    Route::get('/categories','cats');
+    Route::post('/like/{user_id}/{post_id}','plike');
+    Route::post('/unlike/{user_id}/{post_id}','punlike');
+    Route::get('/show-post/{user_id}/{post_id}','show');
+});

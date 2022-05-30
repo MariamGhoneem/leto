@@ -73,4 +73,24 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Diaper::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function plikes()
+    {
+        return $this->hasMany(Plike::class);
+    }
+
+    public function clikes()
+    {
+        return $this->hasMany(Clike::class);
+    }
 }
