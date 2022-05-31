@@ -24,12 +24,12 @@ class TtrackersController extends Controller
         $validated = Validator::make($request->all(),$rules);
 
         if ($validated->fails()) {
-            return $validated->errors();
+            return response()->json([$validated->errors()],400);
         }
         else{
             $feeding = new Feeding();
             $feeding -> quantity    = $request->quantity;
-            $feeding -> created_at        = $request->created_at;
+            $feeding -> created_at  = $request->created_at;
             $feeding -> user_id     = $user_id;
             $feeding -> baby_id     = $request->baby_id;
             try {
@@ -53,7 +53,8 @@ class TtrackersController extends Controller
         $validated = Validator::make($request->all(),$rules);
 
         if ($validated->fails()) {
-            return $validated->errors();
+            return response()->json([$validated->errors()],400);
+            //return $validated->errors();
         }
         else{
 
@@ -67,7 +68,7 @@ class TtrackersController extends Controller
                 $sleep->save();
                 return response()->json($sleep);
             } catch ( Exception  $th) {
-                return response()->json(['error: no user id or baby id found']);
+                return response()->json(['error: no user id or baby id found'],404);
             }
 
         }
@@ -85,7 +86,7 @@ class TtrackersController extends Controller
 
         $validated = Validator::make($request->all(),$rules);
         if ($validated->fails()) {
-            return $validated->errors();
+            return response()->json([$validated->errors()],400);
         }
         else{
             $diaper = new Diaper();
@@ -119,7 +120,7 @@ class TtrackersController extends Controller
                 $diaper->save();
                 return response()->json($diaper);
             } catch ( Exception  $th) {
-                return response()->json(['error: no user id or baby id found']);
+                return response()->json(['error: no user id or baby id found'],404);
             }
             
         }
