@@ -10,11 +10,12 @@ class Post extends Model
     use HasFactory;
     protected $table = 'posts';
     protected $fillable =[
+        'title',
         'content',
         'cnums',
         'lnums',
         'owner_id',
-        'cat_id'
+        'cat_id',
     ];
 
     public function comments()
@@ -29,7 +30,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'owner_id')->select(['id','name']);
     }
 
     public function cat()
