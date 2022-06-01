@@ -7,25 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 class Post extends Model
 {
-    /*
+    
 
     public function getCreatedAtAttribute($date)
-{
-    return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y/m/d');
-}
-
-public function getUpdatedAtAttribute($date)
-{
-    return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y/m/d');
-}
-    */
+    {
+        return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y/m/d');
+    }   
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'posts';
     protected $fillable =[
         'title',
         'content',
         'cnums',
         'lnums',
+        'created_at',
         'owner_id',
         'cat_id',
     ];

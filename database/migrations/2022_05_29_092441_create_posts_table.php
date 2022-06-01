@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->integer('lnums')->default(0);
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('cat_id')->constrained('categories')->onDelete('cascade');
-            $table->timestamps();
+            $table->dateTime('created_at',);
         });
 
     }

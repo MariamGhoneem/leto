@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 Use Exception;
 
 class PostController extends Controller
@@ -30,6 +31,7 @@ class PostController extends Controller
             $post -> content    = $request-> content;
             $post -> owner_id   = $user_id;
             $post -> cat_id     = $request -> cat_id;
+            $post -> created_at = Carbon::now();
             try {
                 $post ->save();
                 return response()->json(['Post added successfully'=>$post]);
@@ -43,17 +45,15 @@ class PostController extends Controller
     public function catposts($cat_id)
     {
         //To-Do: return liked or not //mainly done
-        //To-Do return correct date format
-        $posts = Post::where('cat_id', '=',$cat_id)->with('user')->with('plikes')->orderBy('created_at', 'desc')->get()->makeHidden(['owner_id','cat_id','created_at','updated_at']);
+        $posts = Post::where('cat_id', '=',$cat_id)->with('user')->with('plikes')->orderBy('created_at', 'desc')->get()->makeHidden(['owner_id','cat_id']);
         return response()->json($posts);
     }
 
     //get user posts
+    //finished
     public function userposts($user_id)
     {
-        //To-Do return correct date format
-        $posts = Post::where('owner_id', '=',$user_id)->get();
-        //$date = $posts->created_at->format('d/m/Y');
+        $posts = Post::where('owner_id', '=',$user_id)->orderBy('created_at', 'desc')->get();
         return response()->json($posts);
         
     }
@@ -130,6 +130,7 @@ class PostController extends Controller
     }
 
     //delete post
+    //finished
     public function delete($usrt_id,$post_id)
     {
         if ($post =Post::where('id','=',$post_id)->where('owner_id','=',$usrt_id)->first()) {
