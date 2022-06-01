@@ -60,4 +60,6 @@ Route::controller(PostController::class)->group(function(){
     Route::post('/like/{user_id}/{post_id}','plike');
     Route::post('/unlike/{user_id}/{post_id}','punlike');
     Route::get('/show-post/{user_id}/{post_id}','show');
+    Route::post('/edit-post/{user_id}/{post_id}','edit');
+    Route::post('/delete-post/{user_id}/{post_id}','delete');
 });

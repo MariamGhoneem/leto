@@ -44,22 +44,38 @@ class PostController extends Controller
     {
         //To-Do: return liked or not //mainly done
         //To-Do return correct date format
-        $posts = Post::where('cat_id', '=',$cat_id)->with('user')->with('plikes')->orderBy('created_at', 'desc')->get()->makeHidden(['owner_id','cat_id']);
+        $posts = Post::where('cat_id', '=',$cat_id)->with('user')->with('plikes')->orderBy('created_at', 'desc')->get()->makeHidden(['owner_id','cat_id','created_at','updated_at']);
         return response()->json($posts);
+    }
+
+    //get user posts
+    public function userposts($user_id)
+    {
+        //To-Do return correct date format
+        $posts = Post::where('owner_id', '=',$user_id)->get();
+        //$date = $posts->created_at->format('d/m/Y');
+        return response()->json($posts);
+        
     }
 
     //view post
     //finished
     public function show($user_id, $post_id)
     {
-        $post = Post::find($post_id);
-        $user = User::find($user_id);
-        $date = $post->created_at->format('d/m/Y');
-        if (Plike::select('id')->where('liker_id', '=', $user_id)->where('post_id', '=', $post_id)->value('id')) {
-            return response()->json(['post'=>$post,'username' => $user-> name, 'date' => $date,'liked' => 'True']);
-        } else {
-            return response()->json(['post'=>$post,'username' => $user-> name,'date' => $date,'liked' => 'False']);
+        if ($post = Post::find($post_id)) {
+            $post->makeHidden(['created_at','updated_at']);
+            $user = User::find($user_id);
+            $date = $post->created_at->format('d/m/Y');        
+            if (Plike::select('id')->where('liker_id', '=', $user_id)->where('post_id', '=', $post_id)->value('id')) {
+                return response()->json(['date' => $date,'username' => $user-> name,'liked' => 'True','post' => $post]);
+            } else {
+                return response()->json(['date' => $date,'username' => $user-> name,'liked' => 'False','post' => $post]);
+            }
+        } else{
+            return response()->json('Not found',404);
         }
+        
+        
     }
 
     //like post
@@ -100,16 +116,27 @@ class PostController extends Controller
     }
 
     //edit post
-
-    //get user posts
-    public function userposts($user_id)
+    //finished
+    public function edit(Request $request, $usrt_id,$post_id)
     {
-        //To-Do return correct date format
-        if ($posts = Post::where('owner_id', '=',$user_id)->get()) {
-            //$date = $posts->created_at->format('d/m/Y');
-            return response()->json($posts);
+        if ($post =Post::where('id','=',$post_id)->where('owner_id','=',$usrt_id)->first()) {
+            $post -> title      = $request-> title;
+            $post -> content    = $request-> content;
+            $post->save();
+            return response()->json($post);
+        }  else{
+            return response()->json('Unauthorized',401);
+        }      
+    }
+
+    //delete post
+    public function delete($usrt_id,$post_id)
+    {
+        if ($post =Post::where('id','=',$post_id)->where('owner_id','=',$usrt_id)->first()) {
+            $post->delete();
+            return response()->json(["post deleted successfully"]);
         } else {
-            return response()->json('no posts found',404);
+            return response()->json('Unauthorized',401);   
         }
     }
 }
