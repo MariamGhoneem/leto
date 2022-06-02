@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->integer('lnums')->default(0);
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
             $table->foreign('post_id')->constrained('posts')->onDelete('cascade');
-            $table->timestamps();
+            $table->dateTime('created_at',);
         });
     }
 

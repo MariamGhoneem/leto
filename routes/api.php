@@ -63,3 +63,12 @@ Route::controller(PostController::class)->group(function(){
     Route::post('/edit-post/{user_id}/{post_id}','edit');
     Route::post('/delete-post/{user_id}/{post_id}','delete');
 });
+
+Route::controller(CommentController::class)->group(function(){
+    Route::post('/comment/{user_id}/{post_id}','insert');
+    Route::post('/comment-like/{user_id}/{comment_id}','clike');
+    Route::post('/comment-unlike/{user_id}/{comment_id}','cunlike');
+    Route::post('/edit-comment/{user_id}/{comment_id}','edit');
+    Route::post('/delete-comment/{user_id}/{comment_id}','delete');
+    Route::get('/pcomments/{post_id}','postcomments');
+});

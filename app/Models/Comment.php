@@ -7,12 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    public function getCreatedAtAttribute($date)
+    {
+        return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y/m/d');
+    }
     use HasFactory;
     protected $table = 'comments';
+    public $timestamps = false;
     protected $fillable =[
         'content',
         'lnums',
         'owner_id',
+        'created_at',
         'post_id'
     ];
 
