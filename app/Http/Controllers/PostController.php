@@ -63,13 +63,11 @@ class PostController extends Controller
     public function show($user_id, $post_id)
     {
         if ($post = Post::find($post_id)) {
-            $post->makeHidden(['created_at','updated_at']);
             $user = User::find($user_id);
-            $date = $post->created_at->format('d/m/Y');        
             if (Plike::select('id')->where('liker_id', '=', $user_id)->where('post_id', '=', $post_id)->value('id')) {
-                return response()->json(['date' => $date,'username' => $user-> name,'liked' => 'True','post' => $post]);
+                return response()->json(['username' => $user-> name,'liked' => 'True','post' => $post]);
             } else {
-                return response()->json(['date' => $date,'username' => $user-> name,'liked' => 'False','post' => $post]);
+                return response()->json(['username' => $user-> name,'liked' => 'False','post' => $post]);
             }
         } else{
             return response()->json('Not found',404);
