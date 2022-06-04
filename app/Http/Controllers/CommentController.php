@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clike;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -30,6 +31,7 @@ class CommentController extends Controller
             $comment -> created_at = Carbon::now();
             try {
                 $comment ->save();
+                Post::select('cnums')->where('id', '=', $post_id)->increment('cnums');
                 return response()->json(['comment added successfully'=>$comment]);
             } catch ( Exception $th) {
                 return response()->json($th,406);
@@ -70,7 +72,7 @@ class CommentController extends Controller
     public function edit(Request $request, $user_id,$comment_id)
     {
         if ($comment =Comment::where('id','=',$comment_id)->where('owner_id','=',$user_id)->first()) {
-            $comment -> title      = $request-> title;
+            $comment -> content      = $request-> content;
             $comment->save();
             return response()->json($comment);
         }  else{
@@ -79,11 +81,12 @@ class CommentController extends Controller
     }
 
     //delete comment
-    public function delete($user_id,$comment_id)
+    public function delete($user_id,$post_id,$comment_id)
     {
         if ($comment =Comment::where('id','=',$comment_id)->where('owner_id','=',$user_id)->first()) {
             $comment->delete();
-            return response()->json(["post deleted successfully"]);
+            Post::select('cnums')->where('id', '=', $post_id)->decrement('cnums');
+            return response()->json(["comment deleted successfully"]);
         } else {
             return response()->json('Unauthorized',401);   
         }
