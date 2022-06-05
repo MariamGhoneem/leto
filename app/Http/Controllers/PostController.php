@@ -13,7 +13,6 @@ Use Exception;
 class PostController extends Controller
 {
     //add post
-    //finished
     public function insert(Request $request, $user_id)
     {
         $rules = array(
@@ -44,13 +43,11 @@ class PostController extends Controller
     //get category posts
     public function catposts($cat_id)
     {
-        //To-Do: return liked or not //mainly done
-        $posts = Post::where('cat_id', '=',$cat_id)->with('user')->with('plikes')->orderBy('created_at', 'desc')->get()->makeHidden(['owner_id','cat_id']);
+        $posts = Post::where('cat_id', '=',$cat_id)->with('user')->with('plikes')->orderBy('created_at', 'desc')->paginate(10);
         return response()->json($posts);
     }
 
     //get user posts
-    //finished
     public function userposts($user_id)
     {
         $posts = Post::where('owner_id', '=',$user_id)->orderBy('created_at', 'desc')->get();
@@ -59,7 +56,6 @@ class PostController extends Controller
     }
 
     //view post
-    //finished
     public function show($user_id, $post_id)
     {
         if ($post = Post::find($post_id)) {
@@ -77,7 +73,6 @@ class PostController extends Controller
     }
 
     //like post
-    //finished
     public function plike($user_id, $post_id)
     {
         if (Plike::select('id')->where('liker_id', '=', $user_id)->where('post_id', '=', $post_id)->value('id')) {
@@ -97,7 +92,6 @@ class PostController extends Controller
     }
 
     //unlike post
-    //finished
     public function punlike($user_id, $post_id)
     {
         if ($id = Plike::select('id')->where('liker_id', '=', $user_id)->where('post_id', '=', $post_id)->value('id')) {
@@ -114,7 +108,6 @@ class PostController extends Controller
     }
 
     //edit post
-    //finished
     public function edit(Request $request, $usrt_id,$post_id)
     {
         if ($post =Post::where('id','=',$post_id)->where('owner_id','=',$usrt_id)->first()) {
@@ -128,7 +121,6 @@ class PostController extends Controller
     }
 
     //delete post
-    //finished
     public function delete($usrt_id,$post_id)
     {
         if ($post =Post::where('id','=',$post_id)->where('owner_id','=',$usrt_id)->first()) {
