@@ -50,6 +50,9 @@ Route::controller(HistoryController::class)->group(function (){
 
 Route::controller(CryController::class)->group(function (){
     Route::get('/trackers-data/{baby_id}', 'trackers');
+    Route::post('/insert/{baby_id}', 'insert');
+    Route::post('/edit/{baby_id}', 'edit');
+    Route::get('/cry/{baby_id}', 'cry');
 });
 
 Route::controller(PostController::class)->group(function(){
