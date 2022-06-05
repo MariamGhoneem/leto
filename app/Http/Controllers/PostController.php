@@ -50,7 +50,7 @@ class PostController extends Controller
     //get user posts
     public function userposts($user_id)
     {
-        $posts = Post::where('owner_id', '=',$user_id)->orderBy('created_at', 'desc')->get();
+        $posts = Post::where('owner_id', '=',$user_id)->orderBy('created_at', 'desc')->paginate(10);
         return response()->json($posts);
         
     }
