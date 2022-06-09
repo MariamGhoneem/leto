@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -74,4 +75,8 @@ Route::controller(CommentController::class)->group(function(){
     Route::post('/edit-comment/{user_id}/{comment_id}','edit');
     Route::post('/delete-comment/{user_id}/{post_id}/{comment_id}','delete');
     Route::get('/pcomments/{post_id}','postcomments');
+});
+
+Route::controller(TipsController::class)->group(function (){
+    Route::get('/tipoftheday/{baby_id}', 'tipoftheday');
 });
