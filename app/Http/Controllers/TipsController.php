@@ -15,12 +15,13 @@ class TipsController extends Controller
         } catch (\Throwable $th) {
             return response()->json('no babyid found',404);
         }
-        $getfirstdate = $baby-> birthdate;
-        $birthdate = $getfirstdate.' 00:00:00';
-        $firstdate =    new Carbon($birthdate);
-        $lastdate =     Carbon::now();
-        $day =          $firstdate->diffInDays($lastdate);
-        $tip =          Tip::where('tipnum','<=',$day+1)->paginate(7);
-        return response()->json($tip);
+        $getfirstdate   = $baby-> birthdate;
+        $birthdate      = $getfirstdate.' 00:00:00';
+        $firstdate      = new Carbon($birthdate);
+        $lastdate       = Carbon::now();
+        $day            = $firstdate->diffInDays($lastdate);
+        $tips           = Tip::where('tipnum','<=',$day+1)->paginate(7);
+        $tip            = Tip::find($day+1) ;
+        return response()->json(['tips' => $tips,'daily tip' => $tip]);
     }
 }
