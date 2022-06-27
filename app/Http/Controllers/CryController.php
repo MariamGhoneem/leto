@@ -29,11 +29,11 @@ class CryController extends Controller
     public function insert(Request $request, $baby_id)
     {
         $rules = array(
-            'last_week' => 'required','sleep24' => 'required','sleep_avg' => 'required','last_wet' => 'required','wet24' => 'required',
+            'last_wake' => 'required','sleep24' => 'required','sleep_avg' => 'required','last_wet' => 'required','wet24' => 'required',
             'wet_avg' => 'required','last_dirty' => 'required','dirty24' => 'required','dirty_avg' => 'required','last_feed' => 'required',
             'feed24' => 'required','feed_avg' => 'required','normal_freq' => 'required','sleep_frq' => 'required','wet_freq' => 'required',
             'dirty_freq' => 'required','food_freq' => 'required','normal_instance' => 'required','sleep_instance' => 'required',
-            'wet_instance' => 'required','dirty_instance' => 'required','food_instance' => 'required','Label' => 'required',
+            'wet_instance' => 'required','dirty_instance' => 'required','food_instance' => 'required','label' => 'required',
         );
 
         $validated = Validator::make($request->all(),$rules);
@@ -41,7 +41,7 @@ class CryController extends Controller
             return response()->json([$validated->errors()],400);
         }else{
             $cry = new Cry();
-            $cry -> last_week       = $request->last_week;
+            $cry -> last_week       = $request->last_wake;
             $cry -> sleep24         = $request->sleep24;
             $cry -> sleep_avg       = $request->sleep_avg;
             $cry -> last_wet        = $request->last_wet;
@@ -53,17 +53,17 @@ class CryController extends Controller
             $cry -> last_feed       = $request->last_feed;
             $cry -> feed24          = $request->feed24;
             $cry -> feed_avg        = $request->feed_avg;
-            $cry -> normal_freq     = $request->normal_freq;
+            $cry -> normal_freq     = $request->normal_frq;
             $cry -> sleep_frq       = $request->sleep_frq;
-            $cry -> wet_freq        = $request->wet_freq;
-            $cry -> dirty_freq      = $request->dirty_freq;
-            $cry -> food_freq       = $request->food_freq;
+            $cry -> wet_freq        = $request->wet_frq;
+            $cry -> dirty_freq      = $request->dirty_frq;
+            $cry -> food_freq       = $request->food_frq;
             $cry -> normal_instance = $request->normal_instance;
             $cry -> sleep_instance  = $request->sleep_instance;
             $cry -> wet_instance    = $request->wet_instance;
             $cry -> dirty_instance  = $request->dirty_instance;
             $cry -> food_instance   = $request->food_instance;
-            $cry -> Label           = $request->Label;
+            $cry -> Label           = $request->label;
             $cry -> baby_id         = $baby_id;
             $cry -> created_at      = Carbon::now();
             try {
