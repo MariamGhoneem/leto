@@ -31,8 +31,8 @@ class CryController extends Controller
         $rules = array(
             'last_wake' => 'required','sleep24' => 'required','sleep_avg' => 'required','last_wet' => 'required','wet24' => 'required',
             'wet_avg' => 'required','last_dirty' => 'required','dirty24' => 'required','dirty_avg' => 'required','last_feed' => 'required',
-            'feed24' => 'required','feed_avg' => 'required','normal_freq' => 'required','sleep_frq' => 'required','wet_freq' => 'required',
-            'dirty_freq' => 'required','food_freq' => 'required','normal_instance' => 'required','sleep_instance' => 'required',
+            'feed24' => 'required','feed_avg' => 'required','normal_frq' => 'required','sleep_frq' => 'required','wet_frq' => 'required',
+            'dirty_frq' => 'required','food_frq' => 'required','normal_instance' => 'required','sleep_instance' => 'required',
             'wet_instance' => 'required','dirty_instance' => 'required','food_instance' => 'required','label' => 'required',
         );
 
@@ -70,7 +70,7 @@ class CryController extends Controller
                 $cry -> save();
                 return response()->json('success');
             } catch ( Exception $th) {
-                return response()->json('error',406);
+                return response()->json($th);
             }
         }  
     }
