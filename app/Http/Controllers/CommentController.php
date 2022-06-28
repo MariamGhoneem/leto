@@ -92,12 +92,12 @@ class CommentController extends Controller
         }
     }
     
-    //post comments //unfinished
+    //post comments 
     public function postcomments($post_id)
     {
         //To-Do: return liked or not
         $comments = Comment::where('post_id', '=',$post_id)->orderBy('created_at', 'desc')->get();
-        return response()->json($comments);
+        return response()->json(['comments' => $comments]);
         
     }
 }
