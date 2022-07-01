@@ -96,7 +96,7 @@ class CommentController extends Controller
     public function postcomments($post_id)
     {
         //To-Do: return liked or not
-        $comments = Comment::where('post_id', '=',$post_id)->orderBy('created_at', 'desc')->get();
+        $comments = Comment::where('post_id', '=',$post_id)->with('user')->with('clikes')->orderBy('created_at', 'desc')->get();
         return response()->json(['comments' => $comments]);
         
     }

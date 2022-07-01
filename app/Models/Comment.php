@@ -29,7 +29,7 @@ class Comment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'owner_id')->select(['id','name']);
     }
 
     public function clikes()
